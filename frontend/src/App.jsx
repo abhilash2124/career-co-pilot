@@ -7,20 +7,21 @@ function App() {
 
   const [career, setCareer] = useState("");
   const [roadmap, setRoadmap] = useState([]);
-
+  const [error, setError] = useState('');
 
   const handleChange = (e) => {
+
     setSkills(e.target.value);
   };
 
-  // const handleSubmit = () => {
-  //   const skillsArray = skills
-  //     .split(",")
-  //     .map((skill) => skill.trim())
-
-  //   console.log("Submitted skills:", skillsArray);
-  // };
   const handleSubmit = async () => {
+    if (!skills.trim()) {
+      setError("Please enter at least one skill");
+      setCareer("");
+      setRoadmap([]);
+      return;
+    }
+    setError("");
     const skillsArray = skills
       .split(",")
       .map(skill => skill.trim().toLowerCase());
@@ -39,10 +40,10 @@ function App() {
       const data = await response.json();
       setCareer(data.career);
       setRoadmap(data.roadmap);
-
     } catch (error) {
       console.error("Error connecting to backend:", error);
     }
+    setSkills("");
   };
 
 
@@ -63,6 +64,8 @@ function App() {
       <button onClick={handleSubmit}>
         Get Career Suggestion
       </button>
+
+      {error && <p style={{ color: 'red' }}>{error}</p>}
 
       <p>You entered: {skills}</p>
       <p>Skills array: {JSON.stringify(

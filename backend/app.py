@@ -24,6 +24,11 @@ CARRER_RULES = [
         "skills": ["html", "css", "javascript"],
         "career": "Frontend Developer",
         "roadmap": ["React", "Git", "Responsive Design"] 
+    },
+    {
+    "skills": ["java", "spring"],
+    "career": "Backend Developer",
+    "roadmap": ["Java Core", "Spring Boot", "REST APIs"]
     }
 ]
 
@@ -50,10 +55,15 @@ def recommend():
                 "roadmap": rule["roadmap"]
             })
             
+    # return jsonify({
+    #     "career": "Software Engineer",
+    #     "roadmap": ["DSA Basic", "GIt", "Problem Solving"]
+    # })
     return jsonify({
-        "career": "Software Engineer",
-        "roadmap": ["DSA Basic", "GIt", "Problem Solving"]
-    })
+    "career": "No suitable career found",
+    "roadmap": ["Try adding more relevant skills"]
+})
+
 
 if __name__ == "__main__":
     app.run(debug=True)
