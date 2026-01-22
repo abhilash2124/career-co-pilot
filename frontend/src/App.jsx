@@ -8,13 +8,17 @@ function App() {
   const [career, setCareer] = useState("");
   const [roadmap, setRoadmap] = useState([]);
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
+  const API_URL = import.meta.env.VITE_API_URL;
 
+  // Handle input change
   const handleChange = (e) => {
-
     setSkills(e.target.value);
   };
 
+  // Handle form submission
   const handleSubmit = async () => {
+    //Client-side validation
     if (!skills.trim()) {
       setError("Please enter at least one skill");
       setCareer("");
@@ -22,19 +26,21 @@ function App() {
       return;
     }
     setError("");
+    setLoading(true);
+
+    //Normalize skills input
     const skillsArray = skills
       .split(",")
       .map(skill => skill.trim().toLowerCase());
 
+    //Call backend API
     try {
-      const response = await fetch("http://127.0.0.1:5000/recommend", {
+      const response = await fetch(`${API_URL}/recommend`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
         },
-        body: JSON.stringify({
-          skills: skillsArray
-        })
+        body: JSON.stringify({ skills: skillsArray })
       });
 
       const data = await response.json();
@@ -42,6 +48,8 @@ function App() {
       setRoadmap(data.roadmap);
     } catch (error) {
       console.error("Error connecting to backend:", error);
+    } finally {
+      setLoading(false);
     }
     setSkills("");
   };
@@ -61,15 +69,12 @@ function App() {
 
       <br /><br />
 
-      <button onClick={handleSubmit}>
-        Get Career Suggestion
+      <button onClick={handleSubmit} disabled={loading} >
+        {loading ? "Loading..." : "Get Career Suggestion"}
       </button>
 
       {error && <p style={{ color: 'red' }}>{error}</p>}
 
-      <p>You entered: {skills}</p>
-      <p>Skills array: {JSON.stringify(
-        skills.split(",").map((skill) => skill.trim()))}</p>
       <h2>Recommended Roadmap:</h2>
       <ul>
         {roadmap.map((item, index) => (
@@ -77,7 +82,7 @@ function App() {
         ))}
       </ul>
       <h2>Suggested Career:</h2>
-      <p>{career}</p>
+      <p><strong>{career}</strong></p>
 
     </div>
   );
