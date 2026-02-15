@@ -19,14 +19,3 @@ class User:
             "created_at": self.created_at
         }
 
-
-# backend/
-# ├── controllers/
-# │   ├── user_controller.py
-# │   ├── roadmap_controller.py
-# │   └── doubt_controller.py
-# ├── models/
-# │   ├── user_model.py
-# │   ├── roadmap_model.py
-# │   └── doubt_model.py
-# ├── app.py

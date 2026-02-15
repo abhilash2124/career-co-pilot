@@ -29,11 +29,33 @@ function App() {
     setLoading(true);
 
     //Normalize skills input
+    // const skillsArray = skills
+    //   .split(",")
+    //   .map(skill => skill.trim().toLowerCase());
+
     const skillsArray = skills
       .split(",")
-      .map(skill => skill.trim().toLowerCase());
+      .map(skill => skill.trim().toLowerCase())
+      .filter(skill => skill.length > 0);  // ✅ Remove empty strings
 
-    //Call backend API
+    // Call backend API
+    // try {
+    //   const response = await fetch(`${API_URL}/recommend`, {
+    //     method: "POST",
+    //     headers: {
+    //       "Content-Type": "application/json"
+    //     },
+    //     body: JSON.stringify({ skills: skillsArray })
+    //   });
+    //   const data = await response.json();
+    //   setCareer(data.career);
+    //   setRoadmap(data.roadmap);
+    // } catch (error) {
+    //   console.error("Error connecting to backend:", error);
+    // } finally {
+    //   setLoading(false);
+    // }
+    // setSkills("");
     try {
       const response = await fetch(`${API_URL}/recommend`, {
         method: "POST",
@@ -43,12 +65,20 @@ function App() {
         body: JSON.stringify({ skills: skillsArray })
       });
 
+      if (!response.ok) {
+        throw new Error('Server error');
+      }
+
       const data = await response.json();
       setCareer(data.career);
       setRoadmap(data.roadmap);
     } catch (error) {
       console.error("Error connecting to backend:", error);
-    } finally {
+      setError("Failed to connect to server. Please try again.");
+      setCareer("");
+      setRoadmap([]);
+    }
+    finally {
       setLoading(false);
     }
     setSkills("");
@@ -75,14 +105,31 @@ function App() {
 
       {error && <p style={{ color: 'red' }}>{error}</p>}
 
-      <h2>Recommended Roadmap:</h2>
+      {/* <h2>Recommended Roadmap:</h2>
       <ul>
         {roadmap.map((item, index) => (
           <li key={index}>{item}</li>
         ))}
       </ul>
+      {!career && <p>No recommendation yet</p>}
+
       <h2>Suggested Career:</h2>
-      <p><strong>{career}</strong></p>
+      <p><strong>{career}</strong></p> */}
+      {career && (
+        <>
+          <h2>Suggested Career:</h2>
+          <p><strong>{career}</strong></p>
+
+          <h2>Recommended Roadmap:</h2>
+          <ul>
+            {roadmap.map((item, index) => (
+              <li key={index}>{item}</li>
+            ))}
+          </ul>
+        </>
+      )}
+
+      {!career && !loading && <p>No recommendation yet</p>}
 
     </div>
   );
