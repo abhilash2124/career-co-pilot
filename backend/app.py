@@ -10,6 +10,7 @@ from routes.career_routes import career_bp
 from flask_cors import CORS
 import os
 from models.user_model import save_search_history
+from routes.auth_routes import auth_bp
 
 
 # Initialize Flask app
@@ -20,6 +21,8 @@ CORS(app)
 
 # Register Blueprint
 app.register_blueprint(career_bp)
+# Register auth blueprint
+app.register_blueprint(auth_bp)
 
 
 @app.route("/", methods=["GET"])

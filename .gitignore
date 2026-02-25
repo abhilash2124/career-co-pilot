@@ -45,3 +45,4 @@ dist/
 .env
 frontend/.env
 
+venv/

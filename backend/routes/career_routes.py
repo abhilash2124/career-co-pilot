@@ -87,3 +87,12 @@ def delete_history(history_id):
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+    
+# @career_bp.route("/register", methods=["POST"])
+# def register():
+#     data = request.json
+#     name = data.get("name")
+#     email = data.get("email")
+#     password = data.get("password")
+#     if not name or not email or not password:
+#         return jsonify({"error": "Name, email, and password are required"}), 400
