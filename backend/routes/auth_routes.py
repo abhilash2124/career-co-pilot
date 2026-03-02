@@ -1,6 +1,7 @@
 from flask import Blueprint, request, jsonify
 from models.auth_model import create_user
-from models.auth_model import login_user
+from models.auth_model import login_user, get_user_by_email
+from utils.jwt_utils import generate_token, verify_token
 
 auth_bp = Blueprint("auth", __name__)
 
@@ -44,8 +45,11 @@ def login():
     if error == "Invalid password":
         return jsonify({"error": error}), 401
     
+    token = generate_token(user["id"])
+    
+    print("Generated token:", token)
     return jsonify({
         "message": "Login successful",
-        "user" : user
+        "token" : token
     }), 200
     

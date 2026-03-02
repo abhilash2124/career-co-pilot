@@ -1,8 +1,16 @@
 import { useState } from "react";
 
 import { useEffect } from "react";
+import { apiRequest } from "../utils/api";
 
 function Home() {
+    // const token = localStorage.getItem("token");
+
+    // useEffect(() => {
+    //     if (!token) {
+    //         window.location.href = "/login";
+    //     }
+    // }, []);
 
     const [skills, setSkills] = useState("");
 
@@ -10,32 +18,51 @@ function Home() {
     const [roadmap, setRoadmap] = useState([]);
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
-    const API_URL = import.meta.env.VITE_API_URL;
+    // const API_URL = import.meta.env.VITE_API_URL;
     const [history, setHistory] = useState([]);
     const [page, setPage] = useState(1);
 
-    // Generate or retrieve session ID on app load
-    let sessionId = localStorage.getItem("sessionId");
-    useEffect(() => {
 
-        if (!sessionId) {
-            sessionId = crypto.randomUUID();   // generate UUIDs in browsers
-            localStorage.setItem("sessionId", sessionId);
-        }
-    }, []);
+
+
+    // function handleLogout() {
+    //     localStorage.removeItem("token");
+    //     window.location.href = "/login";
+    // }
 
     // ✅ Standalone fetchHistory function
+    // const fetchHistory = async () => {
+    //     try {
+    //         const response = await fetch(
+    //             `${API_URL}/history?page=${page}`,
+    //             {
+    //                 headers: {
+    //                     "Authorization": `Bearer ${localStorage.getItem("token")}`
+    //                 }
+    //             }
+    //         );
+    //         if (response.status === 401) {
+    //             localStorage.removeItem("token");
+    //             window.location.href = "/login";
+    //             return;
+    //         }
+
+    //         const data = await response.json();
+    //         setHistory(data.history || []);
+
+    //     } catch (error) {
+    //         console.error("Error fetching history:", error);
+    //         setHistory([]);
+    //     }
+    // };
     const fetchHistory = async () => {
-
-        const response = await fetch(
-            `${API_URL}/history?page=${page}`,
-            {
-                headers: { "session-id": sessionId }
-            }
-        );
-
-        const data = await response.json();
-        setHistory(data.history);
+        try {
+            const data = await apiRequest(`/history?page=${page}`);
+            setHistory(data?.history || []);
+        } catch (error) {
+            console.error("Error fetching history:", error);
+            setHistory([]);
+        }
     };
 
 
@@ -48,18 +75,14 @@ function Home() {
         fetchHistory();
     }, [page]);
 
-   
+
 
 
     async function handleDelete(id) {
         try {
-            const sessionId = localStorage.getItem("sessionId");
 
-            await fetch(`${API_URL}/history/${id}`, {
-                method: "DELETE",
-                headers: {
-                    "session-id": sessionId
-                }
+            await apiRequest(`/history/${id}`, {
+                method: "DELETE"
             });
 
             // refresh history
@@ -68,6 +91,22 @@ function Home() {
             console.error("Error deleting history item:", error);
         }
     }
+    // async function handleDelete(id) {
+    //     try {
+
+    //         await fetch(`${API_URL}/history/${id}`, {
+    //             method: "DELETE",
+    //             headers: {
+    //                 "Authorization": `Bearer ${token}`
+    //             }
+    //         });
+
+    //         // refresh history
+    //         fetchHistory();
+    //     } catch (error) {
+    //         console.error("Error deleting history item:", error);
+    //     }
+    // }
 
     // Handle form submission
     const handleSubmit = async () => {
@@ -89,23 +128,20 @@ function Home() {
 
 
         try {
-            const response = await fetch(`${API_URL}/recommend`, {
+            const data = await apiRequest(`/recommend`, {
                 method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    "session-id": localStorage.getItem("sessionId")  // Include session ID in headers
-                },
                 body: JSON.stringify({ skills: skillsArray })
             });
             console.log("Running.....");
 
-            if (!response.ok) {
-                throw new Error('Server error');
-            }
-
-            const data = await response.json();
             setCareer(data.career);
             setRoadmap(data.roadmap);
+
+            await fetchHistory(); // refresh history after new recommendation
+
+            // const data = await response.json();
+            // setCareer(data.career);
+            // setRoadmap(data.roadmap);
         } catch (error) {
             console.error("Error connecting to backend:", error);
             setError("Failed to connect to server. Please try again.");
@@ -117,16 +153,23 @@ function Home() {
         }
         setSkills("");
 
-        await fetch(`${API_URL}/history`, {
-            method: "GET",
-            headers: {
-                "session-id": sessionId
-            }
-        })
-            .then(res => res.json())
-            .then(data => {
-                setHistory(data.history);
-            });
+        // await fetch(`${API_URL}/history`, {
+        //     method: "GET",
+        //     headers: {
+        //         "Authorization": `Bearer ${localStorage.getItem("token")}`
+        //     }
+        // })
+        //     .then(res => {
+        //         if (res.status === 401) {
+        //             localStorage.removeItem("token");
+        //             window.location.href = "/login";
+        //             return;
+        //         }
+        //         return res.json();
+        //     })
+        //     .then(data => {
+        //         if (data) setHistory(data.history);
+        //     });
 
     };
 

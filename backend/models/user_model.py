@@ -5,7 +5,7 @@ import os
 from database import get_db_connection
 
 
-def save_search_history(skills_list, career, session_id):
+def save_search_history(user_id, skills_list, career):
     BASE_DIR = os.path.dirname(os.path.abspath(__file__))
     DB_PATH = os.path.join(BASE_DIR, "..", "career.db")
 
@@ -15,28 +15,16 @@ def save_search_history(skills_list, career, session_id):
     skills_text = ", ".join(skills_list)
 
     cursor.execute(
-        "INSERT INTO user_search_history (skills, career, session_id) VALUES (?, ?, ?)",
-        (skills_text, career, session_id)
+        "INSERT INTO user_search_history (user_id, skills, career) VALUES (?, ?, ?)",
+        (user_id, skills_text, career)
     )
 
     conn.commit()
     conn.close()
 
-# def get_user_history(session_id):
-#     conn = get_db_connection()
-#     cursor = conn.cursor()
-    
-#     cursor.execute(
-#         "SELECT skills, career FROM user_search_history WHERE session_id = ?",
-#         (session_id,)
-#     )
-    
-#     rows = cursor.fetchall()
-#     conn.close()
 
-#     return rows
 
-def get_user_history(session_id, limit=5, offset=0):
+def get_user_history(user_id, limit=5, offset=0):
     BASE_DIR = os.path.dirname(os.path.abspath(__file__))
     DB_PATH = os.path.join(BASE_DIR, "..", "career.db")
 
@@ -47,11 +35,11 @@ def get_user_history(session_id, limit=5, offset=0):
         """
         SELECT id, skills, career, timestamp 
         FROM user_search_history 
-        WHERE session_id = ? 
+        WHERE user_id = ? 
         ORDER BY timestamp DESC
         LIMIT ? OFFSET ?
         """,
-        (session_id, limit, offset)
+        (user_id, limit, offset)
     )
 
     rows = cursor.fetchall()
