@@ -65,7 +65,7 @@ def delete_history(user_id, history_id):
         cursor = conn.cursor()
         
         cursor.execute(
-            "DELETE FROM user_search_history WHERE id = ? AND user_id = ?",
+            "DELETE FROM user_search_history WHERE id = %s AND user_id = %s",
             (history_id, user_id)
         )
         

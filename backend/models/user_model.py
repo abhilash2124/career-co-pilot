@@ -1,48 +1,51 @@
-import sqlite3
-import os
 
 # from models.career_model import get_db_connection
 from database import get_db_connection
 
 
 def save_search_history(user_id, skills_list, career):
-    BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-    DB_PATH = os.path.join(BASE_DIR, "..", "career.db")
+    # BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+    # DB_PATH = os.path.join(BASE_DIR, "..", "career.db")
 
-    conn = sqlite3.connect(DB_PATH)
+    conn = get_db_connection()
     cursor = conn.cursor()
 
     skills_text = ", ".join(skills_list)
 
     cursor.execute(
-        "INSERT INTO user_search_history (user_id, skills, career) VALUES (?, ?, ?)",
+        "INSERT INTO user_search_history (user_id, skills, career) VALUES (%s, %s, %s)",
         (user_id, skills_text, career)
     )
 
     conn.commit()
+    cursor.close()
     conn.close()
 
 
 
 def get_user_history(user_id, limit=5, offset=0):
-    BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-    DB_PATH = os.path.join(BASE_DIR, "..", "career.db")
+    # BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+    # DB_PATH = os.path.join(BASE_DIR, "..", "career.db")
 
-    conn = sqlite3.connect(DB_PATH)
+    print("Fetching history for user:", user_id)
+    
+    conn = get_db_connection()
     cursor = conn.cursor()
 
     cursor.execute(
         """
         SELECT id, skills, career, timestamp 
         FROM user_search_history 
-        WHERE user_id = ? 
+        WHERE user_id = %s
         ORDER BY timestamp DESC
-        LIMIT ? OFFSET ?
+        LIMIT %s OFFSET %s
         """,
         (user_id, limit, offset)
     )
 
     rows = cursor.fetchall()
+    
+    cursor.close()
     conn.close()
 
     history = []
@@ -55,29 +58,3 @@ def get_user_history(user_id, limit=5, offset=0):
         })
 
     return history
-    
-    
-
-
-
-# from datetime import datetime
-# from werkzeug.security import generate_password_hash
-
-
-# class User:
-#     def __init__(self, username, email, password, skills=None):
-#         self.username = username
-#         self.email = email
-#         self.password = generate_password_hash(password)
-#         self.skills = skills if skills else []
-#         self.created_at = datetime.utcnow()
-
-#     def to_dict(self):
-#         return {
-#             "username": self.username,
-#             "email": self.email,
-#             "password": self.password,
-#             "skills": self.skills,
-#             "created_at": self.created_at
-#         }
-

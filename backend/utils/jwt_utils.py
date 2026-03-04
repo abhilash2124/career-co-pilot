@@ -1,8 +1,12 @@
+import dotenv
 import jwt
 import datetime
 import os
+from dotenv import load_dotenv
 
-SECREAT_KEY = os.environ.get("JWT_SECRET_KEY", "dev_secret")
+load_dotenv()
+
+SECREAT_KEY = os.environ.get("JWT_SECRET_KEY")
 # SECREAT_KEY = os.environ.get("JWT_SECRET_KEY")
 # if not SECREAT_KEY:
 #     raise Exception("JWT_SECRET_KEY not set")

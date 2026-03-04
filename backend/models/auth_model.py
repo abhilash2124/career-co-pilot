@@ -1,7 +1,7 @@
 import bcrypt
 from database import get_db_connection
-import os
-import sqlite3
+# import os
+# import sqlite3
 
 
 
@@ -15,7 +15,7 @@ def create_user(name, email, password):
 
     try:
         cursor.execute(
-            "INSERT INTO user(name, email, password_hash) VALUES (?, ?, ?)",
+            "INSERT INTO users (name, email, password_hash) VALUES (%s, %s, %s)",
             (name, email, hashed.decode("utf-8"))
         )
         conn.commit()
@@ -24,6 +24,7 @@ def create_user(name, email, password):
         print("Error creating user:", e)
         return False
     finally:
+        cursor.close()
         conn.close()
 
 
@@ -32,12 +33,15 @@ def get_user_by_email(email):
     cursor = conn.cursor()
 
     cursor.execute(
-        "SELECT * FROM user WHERE email = ?",
+        "SELECT * FROM users WHERE email = %s",
         (email,)
     )
 
     user = cursor.fetchone()
+    
+    cursor.close()
     conn.close()
+    
     return user
 
 def login_user(email, password):
@@ -48,9 +52,11 @@ def login_user(email, password):
     conn = get_db_connection()
     cursor = conn.cursor()
 
-    cursor.execute("SELECT id, name, password_hash FROM user WHERE email = ?", (email,))
+    cursor.execute("SELECT id, name, password_hash FROM users WHERE email = %s", (email,))
+    
     user = cursor.fetchone()
 
+    cursor.close()
     conn.close()
 
     if not user:
