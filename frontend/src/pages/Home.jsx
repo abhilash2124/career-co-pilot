@@ -4,13 +4,7 @@ import { useEffect } from "react";
 import { apiRequest } from "../utils/api";
 
 function Home() {
-    // const token = localStorage.getItem("token");
-
-    // useEffect(() => {
-    //     if (!token) {
-    //         window.location.href = "/login";
-    //     }
-    // }, []);
+    
 
     const [skills, setSkills] = useState("");
 
@@ -18,43 +12,10 @@ function Home() {
     const [roadmap, setRoadmap] = useState([]);
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
-    // const API_URL = import.meta.env.VITE_API_URL;
     const [history, setHistory] = useState([]);
     const [page, setPage] = useState(1);
 
 
-
-
-    // function handleLogout() {
-    //     localStorage.removeItem("token");
-    //     window.location.href = "/login";
-    // }
-
-    // ✅ Standalone fetchHistory function
-    // const fetchHistory = async () => {
-    //     try {
-    //         const response = await fetch(
-    //             `${API_URL}/history?page=${page}`,
-    //             {
-    //                 headers: {
-    //                     "Authorization": `Bearer ${localStorage.getItem("token")}`
-    //                 }
-    //             }
-    //         );
-    //         if (response.status === 401) {
-    //             localStorage.removeItem("token");
-    //             window.location.href = "/login";
-    //             return;
-    //         }
-
-    //         const data = await response.json();
-    //         setHistory(data.history || []);
-
-    //     } catch (error) {
-    //         console.error("Error fetching history:", error);
-    //         setHistory([]);
-    //     }
-    // };
     const fetchHistory = async () => {
         try {
             const data = await apiRequest(`/history?page=${page}`);
@@ -91,22 +52,6 @@ function Home() {
             console.error("Error deleting history item:", error);
         }
     }
-    // async function handleDelete(id) {
-    //     try {
-
-    //         await fetch(`${API_URL}/history/${id}`, {
-    //             method: "DELETE",
-    //             headers: {
-    //                 "Authorization": `Bearer ${token}`
-    //             }
-    //         });
-
-    //         // refresh history
-    //         fetchHistory();
-    //     } catch (error) {
-    //         console.error("Error deleting history item:", error);
-    //     }
-    // }
 
     // Handle form submission
     const handleSubmit = async () => {
@@ -139,9 +84,6 @@ function Home() {
 
             await fetchHistory(); // refresh history after new recommendation
 
-            // const data = await response.json();
-            // setCareer(data.career);
-            // setRoadmap(data.roadmap);
         } catch (error) {
             console.error("Error connecting to backend:", error);
             setError("Failed to connect to server. Please try again.");
@@ -152,24 +94,6 @@ function Home() {
             setLoading(false);
         }
         setSkills("");
-
-        // await fetch(`${API_URL}/history`, {
-        //     method: "GET",
-        //     headers: {
-        //         "Authorization": `Bearer ${localStorage.getItem("token")}`
-        //     }
-        // })
-        //     .then(res => {
-        //         if (res.status === 401) {
-        //             localStorage.removeItem("token");
-        //             window.location.href = "/login";
-        //             return;
-        //         }
-        //         return res.json();
-        //     })
-        //     .then(data => {
-        //         if (data) setHistory(data.history);
-        //     });
 
     };
 
@@ -218,7 +142,7 @@ function Home() {
                 <ul>
                     {history.map((item, index) => (
                         <li key={item.id ?? index}>
-                            {item.skills} ={">"} → {item.career}
+                            {item.skills} ={">"} {item.career}
                             <button onClick={() => handleDelete(item.id)}>
                                 Delete ❌
                             </button>

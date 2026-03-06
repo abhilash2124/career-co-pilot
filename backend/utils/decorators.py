@@ -2,6 +2,14 @@ from functools import wraps
 from flask import request, jsonify
 from utils.jwt_utils import verify_token
 
+# Request
+#   ↓
+# Middleware (authentication) this
+#   ↓
+# Route handler
+#   ↓
+# Response
+
 def token_required(f):
     @wraps(f)
     def decorated(*args, **kwargs):

@@ -14,7 +14,7 @@ career_bp = Blueprint("career", __name__)
 @token_decorator.token_required
 def recommend(user_id):
     try:
-        data = request.json
+        data = request.get_json()
 
         if not data:
             return jsonify({"error": "No data provided"}), 400
