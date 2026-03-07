@@ -46,23 +46,36 @@ This project demonstrates **modern full-stack development practices**, including
 5. Backend returns the recommended career and roadmap.
 6. React dynamically displays the results and stores search history.
 
----
 
-## 🏗 Architecture
+## 🏗 System Architecture
+
+```
+        ┌──────────────────────┐
+        │     React Frontend   │
+        │   (Vite + Fetch API) │
+        └───────────┬──────────┘
+                    │
+                    ▼
+        ┌──────────────────────┐
+        │       Flask API      │
+        │     REST Endpoints   │
+        └───────────┬──────────┘
+                    │
+                    ▼
+        ┌──────────────────────┐
+        │   JWT Authentication │
+        │ Token Generation &   │
+        │ Token Verification   │
+        └───────────┬──────────┘
+                    │
+                    ▼
+        ┌──────────────────────┐
+        │    PostgreSQL DB     │
+        │ Users + SearchHistory│
+        └──────────────────────┘
+```
 
 
-React Frontend
-│
-▼
-Flask REST API
-│
-▼
-JWT Authentication
-│
-▼
-PostgreSQL Database
-
----
 
 ## ▶️ Running the Project Locally
 
