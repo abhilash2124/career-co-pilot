@@ -117,10 +117,10 @@ https://github.com/abhilash2124
 ## 📸 Application Screenshots
 
 ### 🏠 Home Page
-![Home](https://raw.githubusercontent.com/abhilash2124/career-co-pilot/main/screenshots/Home.png)
+![Home](https://github.com/abhilash2124/career-co-pilot/blob/main/screenshots/Home.png)
 
 ### 🔐 Login Page
-![Login](https://raw.githubusercontent.com/abhilash2124/career-co-pilot/main/screenshots/Login.png)
+![Login](https://github.com/abhilash2124/career-co-pilot/blob/main/screenshots/Login.png)
 
 ### 🎯 Career Recommendation + History
-![Result](https://raw.githubusercontent.com/abhilash2124/career-co-pilot/main/screenshots/Result.png)
+![Result](https://github.com/abhilash2124/career-co-pilot/blob/main/screenshots/Result.png)
