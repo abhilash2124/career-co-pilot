@@ -1,50 +1,125 @@
-<!-- # Career Co-Pilot
-
-An AI-based career guidance web application that recommends career paths based on user skills and interests.
-
-Tech Stack:
-- Frontend: React
-- Backend: Python (Flask) -->
-
 # Career Co-Pilot 🚀
 
-Career Co-Pilot is a full-stack web application that recommends a career path
-based on user skills.
+Career Co-Pilot is a **full-stack web application** that recommends career paths based on a user’s skills.  
+Users can enter their skills, receive a recommended career along with a learning roadmap, and track their search history.
+
+This project demonstrates **modern full-stack development practices**, including authentication, REST APIs, and database integration.
 
 ---
 
-## 🔧 Tech Stack
-- Frontend: React (Vite)
-- Backend: Flask (Python)
-- API: REST (JSON)
-- Styling: CSS
+## 🧰 Tech Stack
+
+### Frontend
+- React (Vite)
+- Fetch API
+- CSS
+
+### Backend
+- Flask (Python)
+- JWT Authentication
+- Bcrypt password hashing
+
+### Database
+- PostgreSQL
 
 ---
 
 ## ✨ Features
-- Enter skills in comma-separated format
-- Converts user input into structured data
-- Backend analyzes skills using rule-based logic
-- Displays recommended career and learning roadmap
+
+- 🔐 User registration and login
+- 🧠 Skill-based career recommendation
+- 📚 Learning roadmap suggestions
+- 📜 Search history tracking
+- 🗑 Delete history entries
+- 📄 Pagination for history results
+- 🔒 Protected API routes using JWT
+- ⚡ Centralized API request handler (`api.js`)
 
 ---
 
 ## 🧠 How It Works
-1. User enters skills in the frontend UI
-2. React converts input into an array
-3. Skills are sent to Flask backend via POST API
-4. Flask processes skills and returns career recommendation
-5. React displays career and roadmap dynamically
+
+1. User enters skills in the frontend UI.
+2. React converts the input into an array.
+3. Skills are sent to the Flask backend via a POST request.
+4. Flask processes the skills using rule-based logic.
+5. Backend returns the recommended career and roadmap.
+6. React dynamically displays the results and stores search history.
 
 ---
 
-## ▶️ How to Run the Project
+## 🏗 Architecture
 
-### Backend
+
+React Frontend
+│
+▼
+Flask REST API
+│
+▼
+JWT Authentication
+│
+▼
+PostgreSQL Database
+
+---
+
+## ▶️ Running the Project Locally
+
+### 1️⃣ Clone the Repository
+
 ```bash
+git clone https://github.com/abhilash2124/career-co-pilot.git
+cd career-co-pilot
+
+
+2️⃣ Backend Setup
 cd backend
+python -m venv venv
+pip install -r requirements.txt
 python app.py
 
+Backend runs on:
+http://127.0.0.1:5000
+
+
+3️⃣ Frontend Setup
 cd frontend
 npm install
 npm run dev
+
+Frontend runs on:
+http://localhost:5173
+
+
+🔐 Environment Variables
+Create a .env file inside the backend folder:
+JWT_SECRET_KEY=your_secret_key
+DB_HOST=localhost
+DB_NAME=career_copilot
+DB_USER=postgres
+DB_PASSWORD=your_password
+
+
+📌 Future Improvements
+AI/ML based career recommendation model
+Improved UI/UX design
+Cloud deployment (Render / Railway)
+Larger career dataset
+
+👨‍💻 Author
+Abhilash Addagatla
+GitHub:
+https://github.com/abhilash2124
+
+
+## 📸 Application Screenshots
+
+### Home Page
+![Home](screenshots/home.png)
+
+### Login Page
+![Login](screenshots/login.png)
+
+### Career Recommendation + History
+![Result](screenshots/result.png)
