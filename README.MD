@@ -116,10 +116,10 @@ https://github.com/abhilash2124
 ## 📸 Application Screenshots
 
 ### Home Page
-![Home](screenshots/Home.png)
+![Home](./screenshots/Home.png)
 
 ### Login Page
-![Login](screenshots/Login.png)
+![Login](./screenshots/Login.png)
 
 ### Career Recommendation + History
-![Result](screenshots/Result.png)
+![Result](./screenshots/Result.png)
