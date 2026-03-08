@@ -7,6 +7,16 @@ This project demonstrates **modern full-stack development practices**, including
 
 ---
 
+## 🌍 Live Demo
+
+Frontend:  
+https://career-co-pilot-sigma.vercel.app
+
+Backend API:  
+https://career-co-pilot-1-szo7.onrender.com
+
+---
+
 ## 🧰 Tech Stack
 
 ### Frontend
@@ -20,8 +30,12 @@ This project demonstrates **modern full-stack development practices**, including
 - Bcrypt password hashing
 
 ### Database
-- PostgreSQL
+- PostgreSQL (Render)
 
+### Deployment
+- Frontend: Vercel
+- Backend: Render
+- Database: Render PostgreSQL
 ---
 
 ## ✨ Features
@@ -34,6 +48,7 @@ This project demonstrates **modern full-stack development practices**, including
 - 📄 Pagination for history results
 - 🔒 Protected API routes using JWT
 - ⚡ Centralized API request handler (`api.js`)
+- 🌍 Deployed full-stack application (Vercel + Render)
 
 ---
 
@@ -75,7 +90,54 @@ This project demonstrates **modern full-stack development practices**, including
         └──────────────────────┘
 ```
 
+## 📡 API Endpoints
 
+### Register User
+POST /register
+
+Registers a new user.
+
+---
+
+### Login User
+
+POST /login
+
+
+Authenticates user and returns JWT token.
+
+---
+
+### Recommend Career
+POST /recommend
+
+Input:
+
+{
+"skills": ["python", "sql"]
+}
+
+Returns recommended career and roadmap.
+
+---
+
+### Get Search History
+
+GET /history?page=1
+
+
+Returns paginated user search history.
+
+---
+
+### Delete History Entry
+
+DELETE /history/:id
+
+
+Deletes a specific history entry.
+
+---
 
 ## ▶️ Running the Project Locally
 
@@ -117,8 +179,8 @@ DB_PASSWORD=your_password
 📌 Future Improvements
 AI/ML based career recommendation model
 Improved UI/UX design
-Cloud deployment (Render / Railway)
-Larger career dataset
+Expanded career dataset
+Advanced recommendation system
 
 👨‍💻 Author
 Abhilash Addagatla
@@ -130,10 +192,10 @@ https://github.com/abhilash2124
 ## 📸 Application Screenshots
 
 ### 🏠 Home Page
-![Home](https://github.com/abhilash2124/career-co-pilot/blob/6ec66f96342e8fc6392017761a1c77344875e8f5/screenshots/Home.png)
+![Home alt text](https://github.com/abhilash2124/career-co-pilot/blob/6ec66f96342e8fc6392017761a1c77344875e8f5/screenshots/Home.png)
 
 ### 🔐 Login Page
-![Login](https://github.com/abhilash2124/career-co-pilot/blob/main/screenshots/Login.png)
+![Login alt text](https://github.com/abhilash2124/career-co-pilot/blob/main/screenshots/Login.png)
 
 ### 🎯 Career Recommendation + History
-![Result](https://github.com/abhilash2124/career-co-pilot/blob/main/screenshots/Result.png)
+![Result alt text](/screenshots/Result.png)

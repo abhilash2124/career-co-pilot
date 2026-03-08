@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { apiRequest } from "../utils/api";
 
 function Home() {
-    
+
 
     const [skills, setSkills] = useState("");
 
@@ -98,58 +98,78 @@ function Home() {
     };
 
     return (
-        <div style={{ padding: "2rem" }}>
-            <h1>Career Co-Pilot</h1>
+        <div className="container">
+            <h1>Career Co-Pilot 🚀</h1>
 
-            <input
-                type="text"
-                placeholder="Enter skills (comma separated)"
-                value={skills}
-                onChange={handleChange}
-                style={{ padding: "8px", width: "300px" }}
-            />
+            <div className="card">
+                <h2>🔎 Find Your Career</h2>
 
-            <br /><br />
+                <input
+                    type="text"
+                    placeholder="Enter skills (comma separated), e.g. python,pandas"
+                    value={skills}
+                    onChange={handleChange}
+                />
 
-            <button onClick={handleSubmit} disabled={loading} >
-                {loading ? "Loading..." : "Get Career Suggestion"}
-            </button>
+                <br /><br />
 
-            {error && <p style={{ color: 'red' }}>{error}</p>}
+                <button onClick={handleSubmit} disabled={loading} >
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}>
+                        {loading && <div className="spinner"></div>}
+                        {loading ? "Analyzing..." : "Get Career Suggestion"}
+                    </div>
+                </button>
 
+                {error && <p style={{ color: 'red' }}>{error}</p>}
 
-            {career && (
-                <>
-                    <h2>Suggested Career:</h2>
-                    <p><strong>{career}</strong></p>
+            </div>
 
-                    <h2>Recommended Roadmap:</h2>
-                    <ul>
-                        {roadmap.map((item, index) => (
-                            <li key={index}>{item}</li>
+            <div className="card">
+                <h2>📊 Recommendation</h2>
+
+                {career && (
+                    <>
+                        <h2>Suggested Career:</h2>
+                        <p><strong>{career}</strong></p>
+
+                        <h2>Recommended Roadmap:</h2>
+                        <ul>
+                            {roadmap.map((item, index) => (
+                                <li key={index}>{item}</li>
+                            ))}
+                        </ul>
+                    </>
+                )}
+
+                {!career && !loading && <p>No recommendation yet</p>}
+            </div>
+
+            <div className="card">
+                <h2> 📜 Search History:</h2>
+
+                {history.length === 0 ? (
+                    <p>No searches yet. Enter your skills to get career suggestions.</p>
+                ) : (
+                    <ul >
+                        {history.map((item, index) => (
+                            <li key={item.id ?? index} className="history-item" >
+
+                                {/* {item.skills} ={">"} {item.career} */}
+
+                                <span>
+                                    <strong>{item.skills}</strong> → {item.career}
+                                </span>
+
+                                <button
+                                    className="delete"
+                                    onClick={() => handleDelete(item.id)}>
+                                    Delete
+                                </button>
+                            </li>
                         ))}
                     </ul>
-                </>
-            )}
-
-            {!career && !loading && <p>No recommendation yet</p>}
-
-            <h2>Search History:</h2>
-
-            {history.length === 0 ? (
-                <p>You have not searched anything till now.</p>
-            ) : (
-                <ul>
-                    {history.map((item, index) => (
-                        <li key={item.id ?? index}>
-                            {item.skills} ={">"} {item.career}
-                            <button onClick={() => handleDelete(item.id)}>
-                                Delete ❌
-                            </button>
-                        </li>
-                    ))}
-                </ul>
-            )}
+                )}
+            </div>
 
             <button onClick={() => setPage(page - 1)} disabled={page === 1 || loading}>
                 Previous
