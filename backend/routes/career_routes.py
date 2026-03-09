@@ -47,8 +47,8 @@ def history(user_id):
     limit = 5
     offset = (page - 1) * limit
 
-    # if not user_id:
-    #     return jsonify({"error": "No user ID provided"}), 400
+    if not user_id:
+        return jsonify({"error": "No user ID provided"}), 400
 
     history_data = get_user_history(user_id, limit, offset)
     

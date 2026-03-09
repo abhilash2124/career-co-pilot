@@ -60,6 +60,7 @@ function Login() {
 
             if (response.ok) {
                 alert("Registration successful! please login.");
+                window.location.href = "/";  // Redirect to home page after registration
             } else {
                 alert(data.error || "Registration failed");
             }

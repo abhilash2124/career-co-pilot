@@ -1,6 +1,4 @@
-# import os
-# import sqlite3
-# import psycopg2
+
 from database import get_db_connection
 
 # def get_db_connection():
@@ -19,21 +17,28 @@ def get_career_from_db(skills_list):
     rows = cursor.fetchall()
 
     skills_list_lower = [skill.lower().strip() for skill in skills_list]
+    
+    best_match = None
+    best_match_count = 0
 
-    for row in rows:
+    for row in rows: 
         db_skills = [s.strip() for s in row[0].lower().split(",")]
         career = row[1]
         roadmap = row[2]
+        
+        score = sum(skill in skills_list_lower for skill in db_skills)
 
-        if all(skill in skills_list_lower for skill in db_skills):
-            roadmap_items = [item.strip() for item in roadmap.split(",")]
-            
-            cursor.close()
-            conn.close()
-            return career, roadmap_items
+        if score > best_match_count:
+            best_match_count = score
+            best_match = (career, roadmap)
 
     cursor.close()
     conn.close()
     
+    if best_match:
+        career, roadmap = best_match
+        roadmap_items = [item.strip() for item in roadmap.split(",")]
+        return career, roadmap_items
+        
     return "No suitable career found", ["Try adding more relevant skills"]
 

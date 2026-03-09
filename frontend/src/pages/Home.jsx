@@ -127,10 +127,10 @@ function Home() {
             <div className="card">
                 <h2>📊 Recommendation</h2>
 
-                {career && (
+                {/* {career && (
                     <>
                         <h2>Suggested Career:</h2>
-                        <p><strong>{career}</strong></p>
+                        <p ><strong>{career}</strong></p>
 
                         <h2>Recommended Roadmap:</h2>
                         <ul>
@@ -139,7 +139,29 @@ function Home() {
                             ))}
                         </ul>
                     </>
+                )} */}
+
+                {career && (
+                    <div className="career-card">
+
+                        <h3 className="career-label">Suggested Career</h3>
+
+                        <h1 className="career-title">{career}</h1>
+
+                        <div className="roadmap-section">
+                            <h3>Recommended Roadmap</h3>
+
+                            <ul>
+                                {roadmap.map((item, index) => (
+                                    <li key={index}>{item}</li>
+                                ))}
+                            </ul>
+                        </div>
+
+                    </div>
                 )}
+
+            
 
                 {!career && !loading && <p>No recommendation yet</p>}
             </div>
@@ -153,8 +175,6 @@ function Home() {
                     <ul >
                         {history.map((item, index) => (
                             <li key={item.id ?? index} className="history-item" >
-
-                                {/* {item.skills} ={">"} {item.career} */}
 
                                 <span>
                                     <strong>{item.skills}</strong> → {item.career}

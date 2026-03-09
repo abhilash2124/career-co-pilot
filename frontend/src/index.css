@@ -31,7 +31,7 @@ body {
 }
 
 h1 {
-  font-size: 3.2em;
+  font-size: 2.2em;
   line-height: 1.1;
 }
 
@@ -68,21 +68,3 @@ button:focus-visible {
 }
 
 
-.navbar {
-  display: flex;
-  justify-content: center;
-  gap: 25px;
-  margin-bottom: 30px;
-  font-weight: 500;
-}
-
-.navbar a {
-  color: #60a5fa;
-  text-decoration: none;
-  transition: 0.2s;
-}
-
-.navbar a:hover {
-  color: #93c5fd;
-  transform: translateY(-1px);
-}
