@@ -148,7 +148,7 @@ function Home() {
 
                         <h1 className="career-title">{career}</h1>
 
-                        <div className="roadmap-section">
+                        <div>
                             <h3>Recommended Roadmap</h3>
 
                             <ul>

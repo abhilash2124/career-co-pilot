@@ -191,10 +191,10 @@ https://github.com/abhilash2124
 ## 📸 Application Screenshots
 
 ### 🏠 Home Page
-![Home Page](./screenshots/Home.png)
+![Home Page](screenshots/Home.png)
 
 ### 🔐 Login Page
-![Login Page](./screenshots/Login.png)
+![Login Page](screenshots/Login.png)
 
 ### 🎯 Career Recommendation
-![Result Page](./screenshots/Result.png)
+![Result Page](screenshots/Result.png)
