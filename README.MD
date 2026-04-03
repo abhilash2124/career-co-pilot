@@ -189,15 +189,6 @@ https://github.com/abhilash2124
 
 
 
-### 🏠 Home Page
-![Alt text](screenshots/Home.png)
-
-### 🔐 Login Page
-![Alt text](https://github.com/abhilash2124/career-co-pilot/blob/7f6da7997719f7857dedfde78426cd3974cfec84/screenshots/Home.png)
-
-### 🎯 Career Recommendation
-![Result Page](./frontend/screenshots/Result.png)
-
 ![Home](./screenshots/Home.png)
 ![Login](./screenshots/Login.png)
 ![UI](./screenshots/Result.png)
