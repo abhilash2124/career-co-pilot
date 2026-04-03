@@ -188,7 +188,6 @@ GitHub:
 https://github.com/abhilash2124
 
 
-## 📸 Application Screenshots
 
 ### 🏠 Home Page
 ![Alt text](screenshots/Home.png)
@@ -198,3 +197,7 @@ https://github.com/abhilash2124
 
 ### 🎯 Career Recommendation
 ![Result Page](./frontend/screenshots/Result.png)
+
+![Home](./screenshots/Home.png)
+![Login](./screenshots/Login.png)
+![UI](./screenshots/Result.png)
