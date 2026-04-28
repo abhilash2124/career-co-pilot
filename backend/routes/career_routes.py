@@ -82,3 +82,15 @@ def delete_history(user_id, history_id):
 # def get_history(user_id):
 #     history = get_user_history(user_id)
 #     return jsonify({"history": history})
+
+@career_bp.route("/test-db")
+def test_db():
+    try:
+        conn = get_db_connection()
+        cur = conn.cursor()
+        cur.execute("SELECT 1;")
+        result = cur.fetchone()
+        conn.close()
+        return {"status": "DB Connected", "result": result}
+    except Exception as e:
+        return {"error": str(e)}

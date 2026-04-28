@@ -26,7 +26,8 @@ def get_career_from_db(skills_list):
         career = row[1]
         roadmap = row[2]
         
-        score = sum(skill in skills_list_lower for skill in db_skills)
+        # score = sum(skill in skills_list_lower for skill in db_skills)
+        score = len(set(skills_list_lower) & set(db_skills))
 
         if score > best_match_count:
             best_match_count = score
@@ -35,7 +36,8 @@ def get_career_from_db(skills_list):
     cursor.close()
     conn.close()
     
-    if best_match:
+    # if best_match:
+    if best_match and best_match_count > 0:
         career, roadmap = best_match
         roadmap_items = [item.strip() for item in roadmap.split(",")]
         return career, roadmap_items
