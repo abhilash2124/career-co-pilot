@@ -189,6 +189,6 @@ https://github.com/abhilash2124
 
 
 
+
 ![Home](./screenshots/Home.png)
-![Login](./screenshots/Login.png)
-![UI](./screenshots/Result.png)
+![login](screenshots/login.png)

@@ -27,7 +27,7 @@ def get_user_history(user_id, limit=5, offset=0):
     # BASE_DIR = os.path.dirname(os.path.abspath(__file__))
     # DB_PATH = os.path.join(BASE_DIR, "..", "career.db")
 
-    print("Fetching history for user:", user_id)
+    # print("Fetching history for user:", user_id)
     
     conn = get_db_connection()
     cursor = conn.cursor()

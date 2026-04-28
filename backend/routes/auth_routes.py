@@ -12,10 +12,10 @@ def register():
     name = data.get("name")
     email = data.get("email")
     password = data.get("password")
-    print("Received registration data:", data)
-    print("Name:", name)
-    print("Email:", email)
-    print("Password:", password)
+    # print("Received registration data:", data)
+    # print("Name:", name)
+    # print("Email:", email)
+    # print("Password:", password)
     if not name or not email or not password:
         return jsonify({"error": "All fields (name, email, password) are required"}), 400
     
@@ -47,7 +47,6 @@ def login():
     
     token = generate_token(user["id"])
     
-    print("Generated token:", token)
     return jsonify({
         "message": "Login successful",
         "token" : token
